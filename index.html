@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Toe Toe Hsu Zin – Resume</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:wght@500;600&family=Public+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #eef2f5;
+    --paper: #ffffff;
+    --ink: #14213d;
+    --muted: #55657a;
+    --line: #d6dee6;
+    --accent: #1f6a8f;
+    --accent-ink: #ffffff;
+    --serif: "Newsreader", Georgia, "Times New Roman", serif;
+    --sans: "Public Sans", "Segoe UI", system-ui, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--sans);
+    line-height: 1.6;
+    min-height: 100vh;
+    padding: 32px 16px;
+  }
+  .wrap { max-width: 880px; margin: 0 auto; }
+
+  /* ---------- Intro card ---------- */
+  .intro {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 40px 32px;
+    display: flex;
+    align-items: center;
+    gap: 32px;
+  }
+  .photo {
+    width: 168px; height: 224px; flex: none;
+    border-radius: 12px;
+    background: var(--accent);
+    color: var(--accent-ink);
+    display: grid; place-items: center;
+    font: 600 56px var(--serif);
+    overflow: hidden;
+  }
+  .photo img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; }
+  h1 { font: 600 40px/1.15 var(--serif); margin: 0 0 4px; }
+  .role { color: var(--muted); font-size: 18px; margin: 0 0 20px; }
+  .actions { display: flex; gap: 12px; flex-wrap: wrap; }
+  button {
+    font: 500 15px var(--sans);
+    padding: 10px 20px;
+    border-radius: 8px;
+    border: 1px solid var(--accent);
+    background: var(--accent);
+    color: var(--accent-ink);
+    cursor: pointer;
+  }
+  button.secondary { background: transparent; color: var(--accent); }
+  button:hover { filter: brightness(1.1); }
+  :focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+
+  /* ---------- Resume panel ---------- */
+  #resume {
+    display: none;
+    margin-top: 24px;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 40px 32px;
+    animation: open .25s ease-out;
+  }
+  #resume.open { display: block; }
+  @keyframes open { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
+  @media (prefers-reduced-motion: reduce) { #resume { animation: none; } }
+
+  section + section { margin-top: 36px; }
+  h2 {
+    font: 600 24px var(--serif);
+    margin: 0 0 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--line);
+  }
+  p { margin: 0 0 8px; max-width: 70ch; }
+
+  .contact { display: flex; flex-wrap: wrap; gap: 8px 24px; color: var(--muted); font-size: 15px; }
+  .contact a { color: var(--accent); }
+
+  /* Timeline: experience and education are chronological */
+  .timeline { list-style: none; margin: 0; padding: 0 0 0 20px; border-left: 2px solid var(--line); }
+  .timeline li { position: relative; padding-bottom: 24px; }
+  .timeline li:last-child { padding-bottom: 0; }
+  .timeline li::before {
+    content: ""; position: absolute; left: -27px; top: 8px;
+    width: 12px; height: 12px; border-radius: 50%;
+    background: var(--accent); border: 2px solid var(--paper);
+  }
+  .item-head { display: flex; justify-content: space-between; gap: 4px 12px; flex-wrap: wrap; }
+  .item-title { font-weight: 600; }
+  .item-date { color: var(--muted); font-size: 14px; }
+  .item-sub { color: var(--muted); margin-bottom: 6px; }
+  ul.points { margin: 0; padding-left: 20px; }
+  ul.points li { margin-bottom: 4px; }
+
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; padding: 0; margin: 0; }
+  .chips li { border: 1px solid var(--line); border-radius: 999px; padding: 4px 14px; font-size: 14px; }
+
+  @media (max-width: 620px) {
+    .intro { flex-direction: column; text-align: center; padding: 32px 20px; }
+    .actions { justify-content: center; }
+    #resume { padding: 28px 20px; }
+    h1 { font-size: 32px; }
+  }
+  @media print {
+    body { background: #fff; padding: 0; }
+    .intro { display: none; }
+    #resume { display: block; border: none; margin: 0; padding: 0; animation: none; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="intro">
+    <div class="photo">
+      <img src="photo.jpg" alt="Photo of Toe Toe Hsu Zin"
+           onerror="this.remove(); this.parentNode.textContent='TZ';">
+    </div>
+    <div>
+      <h1>Toe Toe Hsu Zin</h1>
+      <p class="role">Programme Assistant · Incheon, South Korea</p>
+      <div class="actions">
+        <button id="toggle" aria-expanded="false" aria-controls="resume">Open my resume</button>
+        <button class="secondary" id="print">Save as PDF</button>
+      </div>
+    </div>
+  </header>
+
+  <main id="resume">
+    <section>
+      <h2>Contact</h2>
+      <div class="contact">
+        <span>Incheon, South Korea</span>
+        <span>Phone: 010-3971-2709</span>
+        <a href="mailto:toetoehsuzin@gmail.com">toetoehsuzin@gmail.com</a>
+        <span>Visa: D-2 Student Visa (Master’s Student)</span>
+      </div>
+    </section>
+
+    <section>
+      <h2>Professional summary</h2>
+      <p>Detail-oriented professional with 10 years of experience in data analysis, administrative operations, procurement, and supply chain management. Experienced in handling business records, processing information, maintaining accurate databases, and using Microsoft Excel and Power Query.</p>
+      <p>With my previous Data Analyst experience, data entry and record management are familiar tasks for me. I am a quick learner, responsible, and comfortable working with computers and business documents.</p>
+    </section>
+
+    <section>
+      <h2>Work experience</h2>
+      <ul class="timeline">
+        <li>
+          <div class="item-head">
+            <span class="item-title">Data Analyst</span>
+            <span class="item-date">2024 – 2026</span>
+          </div>
+          <div class="item-sub">Dauntless Discovery International</div>
+          <ul class="points">
+            <li>Processed and reviewed large volumes of business and legal data.</li>
+            <li>Used Excel and Power Query for data cleaning, organization, and analysis.</li>
+            <li>Maintained accurate records and performed data quality checks.</li>
+            <li>Prepared structured datasets and reports.</li>
+          </ul>
+        </li>
+        <li>
+          <div class="item-head">
+            <span class="item-title">Demand Planner &amp; Procurement Specialist</span>
+            <span class="item-date">2024</span>
+          </div>
+          <div class="item-sub">Poulet</div>
+          <ul class="points">
+            <li>Managed purchasing records, inventory data, and supplier information.</li>
+            <li>Reduced procurement costs by approximately 15%.</li>
+            <li>Reduced inventory discrepancies by approximately 20%.</li>
+          </ul>
+        </li>
+        <li>
+          <div class="item-head">
+            <span class="item-title">Supply Chain Executive</span>
+            <span class="item-date">2021 – 2023</span>
+          </div>
+          <div class="item-sub">Doughnut Group / Krispy Kreme / Continental Burma</div>
+          <ul class="points">
+            <li>Maintained operational records, inventory information, and supply chain documents.</li>
+            <li>Coordinated purchasing and delivery information.</li>
+          </ul>
+        </li>
+        <li>
+          <div class="item-head">
+            <span class="item-title">Commercial Assistant &amp; Category Specialist</span>
+            <span class="item-date">2018 – 2021</span>
+          </div>
+          <div class="item-sub">METRO</div>
+          <ul class="points">
+            <li>Handled commercial records and accounts payable/receivable documentation.</li>
+            <li>Maintained accurate supplier and product information.</li>
+          </ul>
+        </li>
+        <li>
+          <div class="item-head">
+            <span class="item-title">Merchandising Supervisor</span>
+            <span class="item-date">2016 – 2018</span>
+          </div>
+          <div class="item-sub">City Mart</div>
+          <ul class="points">
+            <li>Coordinated merchandising activities across 40+ branches.</li>
+            <li>Managed product information and supplier records.</li>
+          </ul>
+        </li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Education</h2>
+      <ul class="timeline">
+        <li>
+          <div class="item-head">
+            <span class="item-title">Master’s Degree – Big Data &amp; AI MBA</span>
+            <span class="item-date">Fall 2026 – present</span>
+          </div>
+          <div class="item-sub">Sejong University, South Korea · 50% Scholarship</div>
+        </li>
+        <li>
+          <div class="item-head">
+            <span class="item-title">Bachelor of Arts – English for Professional Purposes</span>
+          </div>
+          <div class="item-sub">University of Yangon, Myanmar · CGPA 3.45</div>
+        </li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Skills</h2>
+      <ul class="chips">
+        <li>Data Entry &amp; Data Management</li>
+        <li>Microsoft Excel &amp; Power Query</li>
+        <li>Data Cleaning &amp; Accuracy Checking</li>
+        <li>Document Processing</li>
+        <li>Record Keeping &amp; Administrative Support</li>
+        <li>Microsoft Word &amp; PowerPoint</li>
+        <li>English Typing</li>
+        <li>Team Collaboration</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Languages</h2>
+      <ul class="chips">
+        <li>Burmese: Native</li>
+        <li>English: Upper-Intermediate</li>
+        <li>Korean: Level 3 Completed</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Availability</h2>
+      <p>Full Time, Remote</p>
+    </section>
+  </main>
+
+</div>
+
+<script>
+  var btn = document.getElementById("toggle");
+  var panel = document.getElementById("resume");
+  btn.addEventListener("click", function () {
+    var open = panel.classList.toggle("open");
+    btn.textContent = open ? "Close my resume" : "Open my resume";
+    btn.setAttribute("aria-expanded", open);
+    if (open) panel.scrollIntoView({ behavior: "smooth", block: "start" });
+  });
+  document.getElementById("print").addEventListener("click", function () {
+    panel.classList.add("open");
+    window.print();
+  });
+</script>
+</body>
+</html>
